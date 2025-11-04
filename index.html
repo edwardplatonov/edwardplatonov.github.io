@@ -29,41 +29,40 @@
     </ul>
   </header>
 
-  <!-- ===== HERO SLIDESHOW ===== -->
+  <!-- ===== HERO IMAGE ROTATION (STATIC SWITCH) ===== -->
   <section class="hero">
-    <div class="slideshow-container">
-      <div class="slide fade" style="background-image:url('assets/images/banner1.jpg');"></div>
-      <div class="slide fade" style="background-image:url('assets/images/banner2.jpg');"></div>
-      <div class="slide fade" style="background-image:url('assets/images/banner3.jpg');"></div>
-      <div class="slide fade" style="background-image:url('assets/images/banner4.jpg');"></div>
-      <div class="slide fade" style="background-image:url('assets/images/banner5.jpg');"></div>
-      <div class="slide fade" style="background-image:url('assets/images/banner6.jpg');"></div>
-      <div class="slide fade" style="background-image:url('assets/images/banner7.jpg');"></div>
-
-      <!-- Overlay and Text -->
-      <div class="hero-overlay"></div>
-      <div class="hero-text">
-        <h1>Edward Platonov</h1>
-        <h2>Portfolio</h2>
-        <a href="#projects" class="btn hero-btn">Learn More</a>
-      </div>
-
-      <!-- Arrows -->
-      <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
-      <a class="next" onclick="changeSlide(1)">&#10095;</a>
-
-      <!-- Dots -->
-      <div class="dots-container">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-        <span class="dot" onclick="currentSlide(4)"></span>
-        <span class="dot" onclick="currentSlide(5)"></span>
-        <span class="dot" onclick="currentSlide(6)"></span>
-        <span class="dot" onclick="currentSlide(7)"></span>
-      </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-text">
+      <h1>Edward Platonov</h1>
+      <h2>Portfolio</h2>
+      <a href="#projects" class="btn hero-btn">Learn More</a>
     </div>
   </section>
+
+  <script>
+    // Simple 7-image rotation (no animation)
+    const hero = document.querySelector('.hero');
+    const images = [
+      'assets/images/banner1.jpg',
+      'assets/images/banner2.jpg',
+      'assets/images/banner3.jpg',
+      'assets/images/banner4.jpg',
+      'assets/images/banner5.jpg',
+      'assets/images/banner6.jpg',
+      'assets/images/banner7.jpg'
+    ];
+    let index = 0;
+
+    function switchImage() {
+      hero.style.backgroundImage = `url('${images[index]}')`;
+      hero.style.backgroundSize = 'cover';
+      hero.style.backgroundPosition = 'center';
+      index = (index + 1) % images.length;
+    }
+
+    switchImage();
+    setInterval(switchImage, 6000);
+  </script>
 
   <!-- ===== MAIN CONTENT ===== -->
   <main>
@@ -83,9 +82,7 @@
     <section id="resume">
       <h2>Resume</h2>
       <p>You can view my resume directly below:</p>
-      <div class="image-container">
-        <img src="assets/images/resume-preview.jpg" alt="Resume preview" class="resume-img">
-      </div>
+      <iframe src="Edward Platonov - Resume.pdf" class="resume-frame"></iframe>
       <a href="Edward Platonov - Resume.pdf" download class="download-btn">Download Resume (PDF)</a>
     </section>
 
@@ -98,56 +95,5 @@
   <footer>
     <p>© 2025 Edward Platonov</p>
   </footer>
-
-  <!-- ===== SLIDESHOW SCRIPT ===== -->
-  <script>
-    let slideIndex = 0;
-    let slides, dots;
-    let slideTimer;
-
-    function showSlides(n) {
-      slides = document.querySelectorAll('.slide');
-      dots = document.querySelectorAll('.dot');
-
-      if (n > slides.length) { slideIndex = 1 }
-      if (n < 1) { slideIndex = slides.length }
-
-      slides.forEach(slide => slide.style.opacity = '0');
-      dots.forEach(dot => dot.classList.remove('active'));
-
-      slides[slideIndex - 1].style.opacity = '1';
-      dots[slideIndex - 1].classList.add('active');
-    }
-
-    function changeSlide(n) {
-      clearInterval(slideTimer);
-      slideIndex += n;
-      if (slideIndex > 7) slideIndex = 1;
-      if (slideIndex < 1) slideIndex = 7;
-      showSlides(slideIndex);
-      startTimer();
-    }
-
-    function currentSlide(n) {
-      clearInterval(slideTimer);
-      slideIndex = n;
-      showSlides(slideIndex);
-      startTimer();
-    }
-
-    function startTimer() {
-      slideTimer = setInterval(() => {
-        slideIndex++;
-        if (slideIndex > 7) slideIndex = 1;
-        showSlides(slideIndex);
-      }, 6000);
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      slideIndex = 1;
-      showSlides(slideIndex);
-      startTimer();
-    });
-  </script>
 </body>
 </html>
