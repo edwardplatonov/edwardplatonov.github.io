@@ -17,7 +17,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ===== NAVIGATION (BLACK HEADER) ===== */
+/* ===== NAVIGATION ===== */
 .navbar {
   background-color: var(--black);
   padding: 15px 20px;
@@ -32,8 +32,6 @@ body {
 .menu {
   list-style: none;
   display: flex;
-  margin: 0;
-  padding: 0;
   gap: 6px;
 }
 
@@ -53,7 +51,6 @@ body {
   background-color: #0a0a0a;
 }
 
-/* ===== DROPDOWN MENUS ===== */
 .dropdown-content {
   display: none;
   position: absolute;
@@ -73,6 +70,7 @@ body {
   color: #eee;
   border-bottom: 1px solid #1b1b1b;
 }
+
 .dropdown-content li a:hover {
   background-color: #0a0a0a;
   color: var(--bronze);
@@ -88,48 +86,44 @@ body {
   margin-top: 55px;
 }
 
-.slideshow {
-  position: absolute;
-  inset: 0;
+.slideshow-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .slide {
   position: absolute;
-  inset: 0;
+  width: 100%;
+  height: 100%;
   background-size: cover;
   background-position: center;
   opacity: 0;
-  animation: fade 15s infinite ease-in-out;
+  transition: opacity 1s ease, transform 1s ease;
+  transform: translateX(100%);
 }
 
-.slide:nth-child(1) { animation-delay: 0s; }
-.slide:nth-child(2) { animation-delay: 5s; }
-.slide:nth-child(3) { animation-delay: 10s; }
-
-@keyframes fade {
-  0% { opacity: 0; }
-  10% { opacity: 1; }
-  30% { opacity: 1; }
-  40% { opacity: 0; }
-  100% { opacity: 0; }
+.slide.active {
+  opacity: 1;
+  transform: translateX(0);
+  z-index: 2;
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 3;
   background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.72));
 }
 
 .hero-text {
   position: absolute;
-  z-index: 2;
+  z-index: 4;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
   color: #fff;
-  padding: 0 16px;
 }
 
 .hero-text h1 {
@@ -158,6 +152,50 @@ body {
   color: #000;
 }
 
+/* ===== SLIDESHOW NAVIGATION ===== */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: auto;
+  padding: 10px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 24px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  z-index: 5;
+  transition: background 0.3s;
+}
+
+.next { right: 0; border-radius: 3px 0 0 3px; }
+.prev:hover, .next:hover { background-color: rgba(0,0,0,0.4); }
+
+/* ===== DOTS ===== */
+.dots-container {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  z-index: 5;
+}
+
+.dot {
+  cursor: pointer;
+  height: 12px;
+  width: 12px;
+  margin: 0 4px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.3s;
+}
+
+.dot.active {
+  background-color: var(--bronze);
+}
+
 /* ===== MAIN CONTENT ===== */
 main {
   max-width: 900px;
@@ -175,7 +213,6 @@ h2 {
   margin-top: 60px;
 }
 
-/* ===== RESUME PREVIEW IMAGE CARD ===== */
 .image-container {
   background-color: var(--mid);
   border: 1px solid var(--line);
@@ -207,7 +244,6 @@ h2 {
   color: #000;
 }
 
-/* ===== FOOTER ===== */
 footer {
   text-align: center;
   padding: 20px;
@@ -218,5 +254,5 @@ footer {
 
 /* ===== ACCESSIBILITY: REDUCE MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
-  .slide { animation: none; opacity: 1; }
+  .slide { transition: none; }
 }
