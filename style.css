@@ -42,7 +42,7 @@ h2 {
   margin-top: 60px;
 }
 
-.pdf-container {
+.pdf-container, .image-container {
   background-color: #111;
   border: 1px solid #222;
   border-radius: 8px;
@@ -50,10 +50,10 @@ h2 {
   margin-top: 20px;
 }
 
-.pdf-container iframe {
+.resume-img {
   width: 100%;
-  height: 600px;
-  border: none;
+  border-radius: 8px;
+  display: block;
 }
 
 .download-btn {
