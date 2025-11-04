@@ -9,14 +9,14 @@
 </head>
 
 <body>
-  <!-- Navigation -->
+  <!-- Navigation Bar -->
   <header>
     <nav>
-      <h1>Edward Platonov</h1>
+      <div class="logo">Edward Platonov</div>
       <ul>
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
-        <li><a href="#experience">Experience</a></li>
+        <li><a href="#resume">Résumé</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
@@ -24,9 +24,10 @@
 
   <!-- Hero Section -->
   <section id="hero">
-    <div class="hero-text">
-      <h2>Mechanical Engineer & Robotics M.S. Candidate</h2>
-      <p>Design. Build. Refine. I combine mechanical precision with robotics innovation to bring ideas to life.</p>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Mechanical Engineer & Robotics M.S. Candidate</h1>
+      <p>Design. Build. Refine. Combining mechanical precision with robotics innovation to bring ideas to life.</p>
       <a href="#projects" class="btn">View Projects</a>
     </div>
   </section>
@@ -38,7 +39,7 @@
       I’m a mechanical engineer with a strong background in robotics, mechatronics, and systems design.
       I recently completed my B.E. in Mechanical Engineering (High Honor, 3.75 GPA) at Stevens Institute of Technology
       and am currently pursuing my M.S. in Robotics. Outside of engineering, I enjoy trading, skiing,
-      and restoring my 2003 BMW Z4 — a project blending mechanical skill and creative craftsmanship.
+      and restoring my 2003 BMW Z4 — a passion project blending mechanical skill and craftsmanship.
     </p>
   </section>
 
@@ -47,63 +48,38 @@
     <h2>Projects</h2>
     <div class="project-grid">
 
-      <div class="project-card">
+      <div class="project-card" data-aos="fade-up">
         <h3>Smart Robotic Inspection System (SARIS)</h3>
-        <p>Developed an autonomous defect detection system combining a robotic arm, 3D scanner, and MATLAB automation.</p>
+        <p>Autonomous defect detection system integrating a robotic arm, 3D scanner, and MATLAB automation.</p>
         <a href="#" class="btn-small">View Project</a>
       </div>
 
-      <div class="project-card">
+      <div class="project-card" data-aos="fade-up">
         <h3>BMW Z4 Restoration</h3>
-        <p>Restoring a 2003 BMW Z4 from the ground up — including mechanical repairs, interior refinishing, and carbon fiber skinning.</p>
+        <p>Restoring a 2003 BMW Z4 — including mechanical repair, carbon fiber skinning, and full repaint.</p>
         <a href="#" class="btn-small">View Project</a>
       </div>
 
-      <div class="project-card">
+      <div class="project-card" data-aos="fade-up">
         <h3>Assistive Lift Systems (SedMed)</h3>
-        <p>Designing and prototyping patent-pending medical devices to improve accessibility and patient independence.</p>
+        <p>Designing patent-pending assistive devices to improve patient independence and clinical safety.</p>
         <a href="#" class="btn-small">View Project</a>
       </div>
 
     </div>
   </section>
 
-  <!-- Experience Section -->
-  <section id="experience">
-    <h2>Experience</h2>
-    <div class="experience-item">
-      <h3>SedMed — Project Engineer</h3>
-      <p>Designing and prototyping assistive toilet lift systems for improved hygiene, safety, and accessibility.</p>
+  <!-- Résumé Section -->
+  <section id="resume">
+    <h2>Résumé</h2>
+    <div class="resume-preview" data-aos="fade-up">
+      <h3>Edward Platonov</h3>
+      <p><strong>Project Engineer</strong> – SedMed | Woodbridge, CT</p>
+      <p><strong>Mechanical Engineer Intern</strong> – TRUMPF | Farmington, CT</p>
+      <p><strong>Project Engineer Intern</strong> – P&A Consulting Engineers | New York, NY</p>
+      <p><strong>Education:</strong> B.E. Mechanical Engineering (High Honor), M.S. Robotics</p>
+      <a href="Edward Platonov - Resume.pdf" class="btn" target="_blank">Open Full Résumé</a>
     </div>
-
-    <div class="experience-item">
-      <h3>P&A Consulting Engineers — Mechanical Design Intern</h3>
-      <p>Contributed to HVAC and mechanical design projects across NYC commercial and residential sectors.</p>
-    </div>
-
-    <div class="experience-item">
-      <h3>TRUMPF — Mechanical Engineer Intern</h3>
-      <p>Designed factory automation components and optimized mechanical systems for integration and safety.</p>
-    </div>
-
-    <!-- Resume Section -->
-    <section id="resume">
-      <h2>Résumé</h2>
-      <p>You can view or download my latest résumé below:</p>
-    
-      <!-- Embedded Preview -->
-      <iframe
-        src="Edward Platonov - Resume.pdf"
-        width="100%"
-        height="600px"
-        style="border: none; border-radius: 10px; background-color: #141B33;">
-      </iframe>
-    
-      <!-- Download Button -->
-      <div style="text-align:center; margin-top:20px;">
-        <a href="Edward Platonov - Resume.pdf" class="btn" download>Download Résumé (PDF)</a>
-      </div>
-    </section>
   </section>
 
   <!-- Contact Section -->
@@ -117,6 +93,7 @@
     </ul>
   </section>
 
+  <!-- Footer -->
   <footer>
     <p>© 2025 Edward Platonov | Designed by Edward Platonov</p>
   </footer>
