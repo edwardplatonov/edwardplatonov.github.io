@@ -31,16 +31,37 @@
 
   <!-- ===== HERO SLIDESHOW ===== -->
   <section class="hero">
-    <div class="slideshow">
-      <div class="slide" style="background-image:url('assets/images/banner1.jpg');"></div>
-      <div class="slide" style="background-image:url('assets/images/banner2.jpg');"></div>
-      <div class="slide" style="background-image:url('assets/images/banner3.jpg');"></div>
-    </div>
-    <div class="hero-overlay"></div>
-    <div class="hero-text">
-      <h1>Edward Platonov</h1>
-      <h2>Portfolio</h2>
-      <a href="#projects" class="btn hero-btn">Learn More</a>
+    <div class="slideshow-container">
+      <div class="slide fade" style="background-image:url('assets/images/banner1.jpg');"></div>
+      <div class="slide fade" style="background-image:url('assets/images/banner2.jpg');"></div>
+      <div class="slide fade" style="background-image:url('assets/images/banner3.jpg');"></div>
+      <div class="slide fade" style="background-image:url('assets/images/banner4.jpg');"></div>
+      <div class="slide fade" style="background-image:url('assets/images/banner5.jpg');"></div>
+      <div class="slide fade" style="background-image:url('assets/images/banner6.jpg');"></div>
+      <div class="slide fade" style="background-image:url('assets/images/banner7.jpg');"></div>
+
+      <!-- Overlay and Text -->
+      <div class="hero-overlay"></div>
+      <div class="hero-text">
+        <h1>Edward Platonov</h1>
+        <h2>Portfolio</h2>
+        <a href="#projects" class="btn hero-btn">Learn More</a>
+      </div>
+
+      <!-- Arrows -->
+      <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+      <a class="next" onclick="changeSlide(1)">&#10095;</a>
+
+      <!-- Dots -->
+      <div class="dots-container">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+        <span class="dot" onclick="currentSlide(6)"></span>
+        <span class="dot" onclick="currentSlide(7)"></span>
+      </div>
     </div>
   </section>
 
@@ -77,5 +98,56 @@
   <footer>
     <p>© 2025 Edward Platonov</p>
   </footer>
+
+  <!-- ===== SLIDESHOW SCRIPT ===== -->
+  <script>
+    let slideIndex = 0;
+    let slides, dots;
+    let slideTimer;
+
+    function showSlides(n) {
+      slides = document.querySelectorAll('.slide');
+      dots = document.querySelectorAll('.dot');
+
+      if (n > slides.length) { slideIndex = 1 }
+      if (n < 1) { slideIndex = slides.length }
+
+      slides.forEach(slide => slide.style.opacity = '0');
+      dots.forEach(dot => dot.classList.remove('active'));
+
+      slides[slideIndex - 1].style.opacity = '1';
+      dots[slideIndex - 1].classList.add('active');
+    }
+
+    function changeSlide(n) {
+      clearInterval(slideTimer);
+      slideIndex += n;
+      if (slideIndex > 7) slideIndex = 1;
+      if (slideIndex < 1) slideIndex = 7;
+      showSlides(slideIndex);
+      startTimer();
+    }
+
+    function currentSlide(n) {
+      clearInterval(slideTimer);
+      slideIndex = n;
+      showSlides(slideIndex);
+      startTimer();
+    }
+
+    function startTimer() {
+      slideTimer = setInterval(() => {
+        slideIndex++;
+        if (slideIndex > 7) slideIndex = 1;
+        showSlides(slideIndex);
+      }, 6000);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      slideIndex = 1;
+      showSlides(slideIndex);
+      startTimer();
+    });
+  </script>
 </body>
 </html>
