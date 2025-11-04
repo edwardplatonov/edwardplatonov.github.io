@@ -1,50 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Edward Platonov | Portfolio</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f9f9f9; color: #222; }
-    header { background: #111; color: white; padding: 40px 0; text-align: center; }
-    nav a { color: white; margin: 0 15px; text-decoration: none; }
-    section { max-width: 800px; margin: 40px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.1); }
-    h1, h2 { text-align: center; }
-    footer { text-align: center; padding: 20px; background: #111; color: white; }
-  </style>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
+  <!-- Navigation -->
   <header>
-    <h1>Edward Platonov</h1>
     <nav>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
+      <h1>Edward Platonov</h1>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </nav>
   </header>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>Welcome to my portfolio! I'm Edward Platonov, an engineer and creator interested in technology, design, and innovation. This site highlights some of my projects and experiences.</p>
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="hero-text">
+      <h2>Mechanical Engineer & Robotics M.S. Candidate</h2>
+      <p>Design. Build. Refine. I combine mechanical precision with robotics innovation to bring ideas to life.</p>
+      <a href="#projects" class="btn">View Projects</a>
+    </div>
   </section>
 
+  <!-- About Section -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>
+      I’m a mechanical engineer with a strong background in robotics, mechatronics, and systems design.
+      I recently completed my B.E. in Mechanical Engineering (High Honor, 3.75 GPA) at Stevens Institute of Technology
+      and am currently pursuing my M.S. in Robotics. Outside of engineering, I enjoy trading, skiing,
+      and restoring my 2003 BMW Z4 — a project blending mechanical skill and creative craftsmanship.
+    </p>
+  </section>
+
+  <!-- Projects Section -->
   <section id="projects">
     <h2>Projects</h2>
+    <div class="project-grid">
+
+      <div class="project-card">
+        <h3>Smart Robotic Inspection System (SARIS)</h3>
+        <p>Developed an autonomous defect detection system combining a robotic arm, 3D scanner, and MATLAB automation.</p>
+        <a href="#" class="btn-small">View Project</a>
+      </div>
+
+      <div class="project-card">
+        <h3>BMW Z4 Restoration</h3>
+        <p>Restoring a 2003 BMW Z4 from the ground up — including mechanical repairs, interior refinishing, and carbon fiber skinning.</p>
+        <a href="#" class="btn-small">View Project</a>
+      </div>
+
+      <div class="project-card">
+        <h3>Assistive Lift Systems (SedMed)</h3>
+        <p>Designing and prototyping patent-pending medical devices to improve accessibility and patient independence.</p>
+        <a href="#" class="btn-small">View Project</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience">
+    <h2>Experience</h2>
+    <div class="experience-item">
+      <h3>SedMed — Project Engineer</h3>
+      <p>Designing and prototyping assistive toilet lift systems for improved hygiene, safety, and accessibility.</p>
+    </div>
+
+    <div class="experience-item">
+      <h3>P&A Consulting Engineers — Mechanical Design Intern</h3>
+      <p>Contributed to HVAC and mechanical design projects across NYC commercial and residential sectors.</p>
+    </div>
+
+    <div class="experience-item">
+      <h3>TRUMPF — Mechanical Engineer Intern</h3>
+      <p>Designed factory automation components and optimized mechanical systems for integration and safety.</p>
+    </div>
+
+    <a href="Edward Platonov - Resume.pdf" class="btn">Download Résumé</a>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Interested in collaboration or opportunities? Let’s connect.</p>
     <ul>
-      <li><strong>Project 1:</strong> Description of what you built or studied.</li>
-      <li><strong>Project 2:</strong> Another brief summary of your work.</li>
-      <li><strong>Project 3:</strong> Include links, images, or papers if relevant.</li>
+      <li>Email: <a href="mailto:edward.a.platonov@gmail.com">edward.a.platonov@gmail.com</a></li>
+      <li>LinkedIn: <a href="https://linkedin.com/in/edwardplatonov" target="_blank">linkedin.com/in/edwardplatonov</a></li>
+      <li>YouTube: <a href="#" target="_blank">BMW Z4 Restoration Channel</a></li>
     </ul>
   </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:yourname@email.com">yourname@email.com</a></p>
-    <p>LinkedIn: <a href="https://linkedin.com/in/edwardplatonov" target="_blank">linkedin.com/in/edwardplatonov</a></p>
-  </section>
-
   <footer>
-    <p>© 2025 Edward Platonov</p>
+    <p>© 2025 Edward Platonov | Designed by Edward Platonov</p>
   </footer>
 </body>
 </html>
