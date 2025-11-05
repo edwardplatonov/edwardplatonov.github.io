@@ -227,11 +227,11 @@ p {
   height: 90vh;
   border: none;
   background: #111;
-  border-radius: 14px; /* more rounded for a modern feel */
+  border-radius: 20px; /* increased roundness */
   margin-top: 20px;
   overflow: auto;
   display: block;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.5); /* soft, modern shadow */
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
 }
 
 .download-btn {
@@ -253,11 +253,46 @@ p {
 
 /* ===== FOOTER ===== */
 footer {
-  text-align: center;
-  padding: 20px;
   background: #000;
   border-top: 1px solid var(--line);
-  color: #999;
+  padding: 40px 20px 20px 20px;
+  color: #ccc;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  flex-wrap: wrap;
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.footer-section {
+  max-width: 400px;
+}
+
+.footer-section h3 {
+  color: var(--bronze);
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.footer-section p, .footer-section a {
+  color: #ccc;
+  text-decoration: none;
+  line-height: 1.5;
+}
+
+.footer-section a:hover {
+  color: var(--bronze);
+}
+
+.copyright {
+  text-align: center;
+  color: #888;
+  font-size: 14px;
 }
 
 /* ===== ACCESSIBILITY ===== */
