@@ -14,11 +14,11 @@
       let current = 0;
       let timer;
 
-      function showSlide(index, direction = 'right') {
-        if (index === current) return;
+      function transitionSlide(nextIndex, direction = 'right') {
+        if (nextIndex === current) return;
 
         const curr = slides[current];
-        const next = slides[index];
+        const next = slides[nextIndex];
 
         // Reset all slides
         slides.forEach((s, i) => {
@@ -28,44 +28,50 @@
           dots[i].classList.remove('active');
         });
 
-        // Fade out the current
-        curr.style.transition = 'opacity 0.5s ease-in-out';
+        // Fade out the current slide
+        curr.style.transition = 'opacity 0.6s ease-in-out';
         curr.style.opacity = '0';
 
-        // Determine slide direction
+        // Set starting position for next slide
         const startX = direction === 'right' ? '100%' : '-100%';
         next.style.transition = 'none';
         next.style.opacity = '1';
         next.style.transform = `translateX(${startX})`;
 
+        // Trigger sliding animation
         requestAnimationFrame(() => {
-          next.style.transition = 'transform 0.7s ease-in-out';
+          next.style.transition = 'transform 0.8s ease-in-out';
           next.style.transform = 'translateX(0)';
         });
 
-        dots[index].classList.add('active');
-        current = index;
-        restartTimer();
+        dots[nextIndex].classList.add('active');
+        current = nextIndex;
       }
 
-      function nextSlide() {
-        let nextIndex = (current + 1) % slides.length;
-        showSlide(nextIndex, 'right');
+      function nextSlide(auto = false) {
+        const nextIndex = (current + 1) % slides.length;
+        transitionSlide(nextIndex, 'right');
+        if (!auto) restartTimer();
       }
 
       function prevSlide() {
-        let prevIndex = (current - 1 + slides.length) % slides.length;
-        showSlide(prevIndex, 'left');
+        const prevIndex = (current - 1 + slides.length) % slides.length;
+        transitionSlide(prevIndex, 'left');
+        restartTimer();
       }
 
       function restartTimer() {
         clearInterval(timer);
-        timer = setInterval(nextSlide, 6000);
+        timer = setInterval(() => nextSlide(true), 6000);
       }
 
-      nextBtn.addEventListener('click', nextSlide);
+      nextBtn.addEventListener('click', () => nextSlide(false));
       prevBtn.addEventListener('click', prevSlide);
-      dots.forEach((dot, i) => dot.addEventListener('click', () => showSlide(i)));
+      dots.forEach((dot, i) => dot.addEventListener('click', () => {
+        const direction = i > current ? 'right' : 'left';
+        transitionSlide(i, direction);
+        restartTimer();
+      }));
 
       restartTimer();
     });
