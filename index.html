@@ -29,39 +29,72 @@
     </ul>
   </header>
 
-  <!-- ===== HERO IMAGE ROTATION (STATIC SWITCH) ===== -->
+  <!-- ===== HERO IMAGE SLIDESHOW WITH INDICATORS & ARROWS ===== -->
   <section class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-text">
-      <h1>Edward Platonov</h1>
-      <h2>Portfolio</h2>
-      <a href="#projects" class="btn hero-btn">Learn More</a>
+    <div class="slideshow-container">
+      <div class="slide" style="background-image:url('assets/images/banner1.jpg');"></div>
+      <div class="slide" style="background-image:url('assets/images/banner2.jpg');"></div>
+      <div class="slide" style="background-image:url('assets/images/banner3.jpg');"></div>
+      <div class="slide" style="background-image:url('assets/images/banner4.jpg');"></div>
+      <div class="slide" style="background-image:url('assets/images/banner5.jpg');"></div>
+      <div class="slide" style="background-image:url('assets/images/banner6.jpg');"></div>
+      <div class="slide" style="background-image:url('assets/images/banner7.jpg');"></div>
+
+      <div class="hero-overlay"></div>
+      <div class="hero-text">
+        <h1>Edward Platonov</h1>
+        <h2>Portfolio</h2>
+      </div>
+      <p class="learn-more">Learn more about this project ↓</p>
+
+      <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+      <a class="next" onclick="changeSlide(1)">&#10095;</a>
+
+      <div class="dots-container">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+        <span class="dot" onclick="currentSlide(6)"></span>
+        <span class="dot" onclick="currentSlide(7)"></span>
+      </div>
     </div>
   </section>
 
   <script>
-    // Simple 7-image rotation (no animation)
-    const hero = document.querySelector('.hero');
-    const images = [
-      'assets/images/banner1.jpg',
-      'assets/images/banner2.jpg',
-      'assets/images/banner3.jpg',
-      'assets/images/banner4.jpg',
-      'assets/images/banner5.jpg',
-      'assets/images/banner6.jpg',
-      'assets/images/banner7.jpg'
-    ];
-    let index = 0;
+    let slideIndex = 0;
+    const slides = document.getElementsByClassName('slide');
+    const dots = document.getElementsByClassName('dot');
 
-    function switchImage() {
-      hero.style.backgroundImage = `url('${images[index]}')`;
-      hero.style.backgroundSize = 'cover';
-      hero.style.backgroundPosition = 'center';
-      index = (index + 1) % images.length;
+    function showSlide(n) {
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.opacity = 0;
+        slides[i].style.transform = 'translateX(100%)';
+        dots[i].classList.remove('active');
+      }
+      slides[n].style.opacity = 1;
+      slides[n].style.transform = 'translateX(0)';
+      dots[n].classList.add('active');
     }
 
-    switchImage();
-    setInterval(switchImage, 6000);
+    function changeSlide(n) {
+      slideIndex = (slideIndex + n + slides.length) % slides.length;
+      showSlide(slideIndex);
+    }
+
+    function currentSlide(n) {
+      slideIndex = n - 1;
+      showSlide(slideIndex);
+    }
+
+    function autoSlide() {
+      slideIndex = (slideIndex + 1) % slides.length;
+      showSlide(slideIndex);
+    }
+
+    showSlide(slideIndex);
+    setInterval(autoSlide, 6000);
   </script>
 
   <!-- ===== MAIN CONTENT ===== -->
@@ -82,7 +115,9 @@
     <section id="resume">
       <h2>Resume</h2>
       <p>You can view my resume directly below:</p>
-      <iframe src="Edward Platonov - Resume.pdf" class="resume-frame"></iframe>
+      <div class="resume-container">
+        <iframe src="Edward Platonov - Resume.pdf" class="resume-frame"></iframe>
+      </div>
       <a href="Edward Platonov - Resume.pdf" download class="download-btn">Download Resume (PDF)</a>
     </section>
 
