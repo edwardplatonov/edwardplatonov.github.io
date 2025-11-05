@@ -81,7 +81,7 @@ body {
 /* ===== HERO SECTION ===== */
 .hero {
   position: relative;
-  height: 88vh; /* reduced height */
+  height: 86vh; /* slightly reduced */
   overflow: hidden;
   margin-top: 55px;
   background-color: #000;
@@ -121,7 +121,7 @@ body {
 .hero-text {
   position: absolute;
   z-index: 4;
-  top: 48%;
+  top: 46%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -129,14 +129,14 @@ body {
 }
 
 .hero-text h1 {
-  font-size: clamp(64px, 7vw, 90px); /* bigger name */
-  margin-bottom: 6px;
+  font-size: clamp(70px, 8vw, 110px); /* larger name */
+  margin-bottom: 2px;
 }
 
 .hero-text h2 {
-  font-size: clamp(26px, 3vw, 38px);
+  font-size: clamp(28px, 4vw, 42px);
   color: var(--bronze);
-  margin-top: -4px; /* move closer to name */
+  margin-top: -8px; /* move closer to name */
 }
 
 .learn-more {
@@ -226,16 +226,15 @@ p {
 }
 
 .resume-frame {
-  width: 90%;
+  width: 85%;
   height: 1000px;
   border: none;
   background: #111;
   border-radius: 10px;
   margin-top: 20px;
-  display: block;
 }
 
-/* Hide Chrome's PDF toolbar and print preview */
+/* Hide Chrome PDF toolbar */
 iframe.resume-frame::-internal-media-controls-overlay-cast-button,
 iframe.resume-frame::-webkit-media-controls,
 iframe.resume-frame::-webkit-pdf-toolbar,
