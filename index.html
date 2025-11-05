@@ -7,55 +7,52 @@
   <link rel="stylesheet" href="style.css" />
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const slides = Array.from(document.querySelectorAll('.slide'));
-      const dots = Array.from(document.querySelectorAll('.dot'));
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.dot');
       const nextBtn = document.querySelector('.next');
       const prevBtn = document.querySelector('.prev');
       let current = 0;
       let timer;
 
-      function setActive(i) {
-        slides.forEach((s, idx) => {
-          s.classList.toggle('active', idx === i);
-          dots[idx].classList.toggle('active', idx === i);
+      function showSlide(index) {
+        slides.forEach((s, i) => {
+          s.classList.remove('active', 'fade-out', 'prepare-enter', 'slide-in-final');
+          s.style.transition = 'none';
+          s.style.opacity = '0';
+          s.style.transform = 'translateX(0)';
+          dots[i].classList.remove('active');
         });
-      }
 
-      function go(toIndex, direction = 1) {
-        if (toIndex === current) return;
         const curr = slides[current];
-        const next = slides[toIndex];
+        const next = slides[index];
 
-        // Reset classes
-        curr.classList.remove('prepare-enter', 'slide-in-final', 'fade-out');
-        next.classList.remove('prepare-enter', 'slide-in-final', 'fade-out', 'active');
+        // Fade out the current
+        curr.style.transition = 'opacity 1s ease-in-out';
+        curr.style.opacity = '0';
 
-        // 1) Current fades out in place
-        curr.classList.add('fade-out');
-
-        // 2) Next enters from right → left (no fade)
+        // Slide in the next from right
         next.style.transition = 'none';
-        next.classList.add('prepare-enter'); // translateX(100%), opacity:1
-        // force reflow so the following transition triggers
-        next.getBoundingClientRect();
-        next.style.transition = '';
-        next.classList.add('slide-in-final'); // translateX(0)
+        next.style.opacity = '1';
+        next.style.transform = 'translateX(100%)';
+        requestAnimationFrame(() => {
+          next.style.transition = 'transform 1.2s ease-in-out';
+          next.style.transform = 'translateX(0)';
+        });
 
-        // After animations complete, clean up & set new active
-        const onDone = () => {
-          curr.classList.remove('fade-out');
-          next.classList.remove('prepare-enter', 'slide-in-final');
-          current = toIndex;
-          setActive(current);
-          curr.removeEventListener('transitionend', onDone);
-        };
-        curr.addEventListener('transitionend', onDone);
-
+        dots[index].classList.add('active');
+        current = index;
         restartTimer();
       }
 
-      function nextSlide() { go((current + 1) % slides.length, 1); }
-      function prevSlide() { go((current - 1 + slides.length) % slides.length, -1); }
+      function nextSlide() {
+        let nextIndex = (current + 1) % slides.length;
+        showSlide(nextIndex);
+      }
+
+      function prevSlide() {
+        let prevIndex = (current - 1 + slides.length) % slides.length;
+        showSlide(prevIndex);
+      }
 
       function restartTimer() {
         clearInterval(timer);
@@ -64,9 +61,8 @@
 
       nextBtn.addEventListener('click', nextSlide);
       prevBtn.addEventListener('click', prevSlide);
-      dots.forEach((dot, i) => dot.addEventListener('click', () => go(i)));
+      dots.forEach((dot, i) => dot.addEventListener('click', () => showSlide(i)));
 
-      setActive(current);
       restartTimer();
     });
   </script>
@@ -94,7 +90,7 @@
     </ul>
   </header>
 
-  <!-- ===== HERO IMAGE (ANIMATION REFINED) ===== -->
+  <!-- ===== HERO IMAGE ===== -->
   <section class="hero">
     <div class="slideshow-container">
       <div class="slide active" style="background-image:url('assets/images/banner1.jpg');"></div>
@@ -143,12 +139,11 @@
       <p>Coming soon...</p>
     </section>
 
-    <!-- ===== RESUME (NO CHROME PRINT UI) ===== -->
+    <!-- ===== RESUME ===== -->
     <section id="resume">
       <h2>Resume</h2>
       <div class="resume-container">
         <p>You can view my resume directly below:</p>
-        <!-- Add URL fragment to hide Chrome toolbar/sidebar -->
         <embed src="Edward Platonov - Resume.pdf#view=FitH&zoom=100&toolbar=0&navpanes=0&scrollbar=0" type="application/pdf" class="resume-frame" />
         <a href="Edward Platonov - Resume.pdf" download class="download-btn">Download Resume (PDF)</a>
       </div>
