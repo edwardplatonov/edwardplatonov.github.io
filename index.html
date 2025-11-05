@@ -14,28 +14,32 @@
       let current = 0;
       let timer;
 
-      function showSlide(index) {
+      function showSlide(index, direction = 'right') {
+        if (index === current) return;
+
+        const curr = slides[current];
+        const next = slides[index];
+
+        // Reset all slides
         slides.forEach((s, i) => {
-          s.classList.remove('active', 'fade-out', 'prepare-enter', 'slide-in-final');
           s.style.transition = 'none';
           s.style.opacity = '0';
           s.style.transform = 'translateX(0)';
           dots[i].classList.remove('active');
         });
 
-        const curr = slides[current];
-        const next = slides[index];
-
         // Fade out the current
-        curr.style.transition = 'opacity 1s ease-in-out';
+        curr.style.transition = 'opacity 0.5s ease-in-out';
         curr.style.opacity = '0';
 
-        // Slide in the next from right
+        // Determine slide direction
+        const startX = direction === 'right' ? '100%' : '-100%';
         next.style.transition = 'none';
         next.style.opacity = '1';
-        next.style.transform = 'translateX(100%)';
+        next.style.transform = `translateX(${startX})`;
+
         requestAnimationFrame(() => {
-          next.style.transition = 'transform 1.2s ease-in-out';
+          next.style.transition = 'transform 0.7s ease-in-out';
           next.style.transform = 'translateX(0)';
         });
 
@@ -46,12 +50,12 @@
 
       function nextSlide() {
         let nextIndex = (current + 1) % slides.length;
-        showSlide(nextIndex);
+        showSlide(nextIndex, 'right');
       }
 
       function prevSlide() {
         let prevIndex = (current - 1 + slides.length) % slides.length;
-        showSlide(prevIndex);
+        showSlide(prevIndex, 'left');
       }
 
       function restartTimer() {
@@ -93,7 +97,7 @@
   <!-- ===== HERO IMAGE ===== -->
   <section class="hero">
     <div class="slideshow-container">
-      <div class="slide active" style="background-image:url('assets/images/banner1.jpg');"></div>
+      <div class="slide active" style="background-image:url('assets/images/banner1.jpg'); opacity: 1;"></div>
       <div class="slide" style="background-image:url('assets/images/banner2.jpg');"></div>
       <div class="slide" style="background-image:url('assets/images/banner3.jpg');"></div>
       <div class="slide" style="background-image:url('assets/images/banner4.jpg');"></div>
