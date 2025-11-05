@@ -81,7 +81,7 @@ body {
 /* ===== HERO SECTION ===== */
 .hero {
   position: relative;
-  height: 95vh; /* slightly shorter for perfect screen fit */
+  height: 88vh; /* reduced height */
   overflow: hidden;
   margin-top: 55px;
   background-color: #000;
@@ -121,7 +121,7 @@ body {
 .hero-text {
   position: absolute;
   z-index: 4;
-  top: 50%;
+  top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -129,24 +129,25 @@ body {
 }
 
 .hero-text h1 {
-  font-size: clamp(42px, 5vw, 64px);
-  margin-bottom: 4px;
+  font-size: clamp(64px, 7vw, 90px); /* bigger name */
+  margin-bottom: 6px;
 }
 
 .hero-text h2 {
-  font-size: clamp(22px, 3vw, 32px);
+  font-size: clamp(26px, 3vw, 38px);
   color: var(--bronze);
-  margin-bottom: 12px;
+  margin-top: -4px; /* move closer to name */
 }
 
 .learn-more {
   position: absolute;
-  bottom: 60px;
+  bottom: 55px;
   width: 100%;
   text-align: center;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--bronze);
   z-index: 5;
+  letter-spacing: 0.5px;
 }
 
 /* ===== ARROWS ===== */
@@ -159,7 +160,7 @@ body {
   padding: 12px;
   color: #fff;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 26px;
   border-radius: 0 3px 3px 0;
   user-select: none;
   z-index: 6;
@@ -172,7 +173,7 @@ body {
 /* ===== DOTS ===== */
 .dots-container {
   position: absolute;
-  bottom: 30px;
+  bottom: 25px;
   width: 100%;
   text-align: center;
   z-index: 6;
@@ -225,12 +226,21 @@ p {
 }
 
 .resume-frame {
-  width: 80%;
-  height: 900px;
+  width: 90%;
+  height: 1000px;
   border: none;
   background: #111;
   border-radius: 10px;
   margin-top: 20px;
+  display: block;
+}
+
+/* Hide Chrome's PDF toolbar and print preview */
+iframe.resume-frame::-internal-media-controls-overlay-cast-button,
+iframe.resume-frame::-webkit-media-controls,
+iframe.resume-frame::-webkit-pdf-toolbar,
+iframe.resume-frame::-webkit-scrollbar-button {
+  display: none !important;
 }
 
 .download-btn {
