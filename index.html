@@ -7,70 +7,101 @@
   <link rel="stylesheet" href="style.css" />
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const slides = document.querySelectorAll('.slide');
-      const dots = document.querySelectorAll('.dot');
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const dots = Array.from(document.querySelectorAll('.dot'));
       const nextBtn = document.querySelector('.next');
       const prevBtn = document.querySelector('.prev');
       let current = 0;
-      let timer;
+      let timer = null;
 
-      function transitionSlide(nextIndex, direction = 'right') {
+      function setActiveDot(i){
+        dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+      }
+
+      function initSlides(){
+        slides.forEach((s, i) => {
+          s.style.transition = 'none';
+          s.style.opacity = i === 0 ? '1' : '0';
+          s.style.transform = 'translateX(0)';
+        });
+        setActiveDot(0);
+        // ensure styles are committed before starting timer
+        requestAnimationFrame(() => {
+          slides.forEach(s => s.style.transition = '');
+          startTimer();
+        });
+      }
+
+      function animateTo(nextIndex, direction = 'right'){
         if (nextIndex === current) return;
-
         const curr = slides[current];
         const next = slides[nextIndex];
 
-        slides.forEach((s, i) => {
-          s.style.transition = 'none';
-          s.style.opacity = '0';
-          s.style.transform = 'translateX(0)';
-          dots[i].classList.remove('active');
-        });
+        // Prepare next slide off-screen
+        next.style.transition = 'none';
+        next.style.opacity = '1';
+        next.style.transform = (direction === 'right') ? 'translateX(100%)' : 'translateX(-100%)';
+        // force reflow to register the starting transform
+        void next.offsetWidth;
 
+        // Fade current (no movement)
         curr.style.transition = 'opacity 0.6s ease-in-out';
         curr.style.opacity = '0';
 
-        const startX = direction === 'right' ? '100%' : '-100%';
-        next.style.transition = 'none';
-        next.style.opacity = '1';
-        next.style.transform = `translateX(${startX})`;
+        // Slide next into place
+        next.style.transition = 'transform 0.8s ease-in-out';
+        next.style.transform = 'translateX(0)';
 
-        requestAnimationFrame(() => {
-          next.style.transition = 'transform 0.8s ease-in-out';
-          next.style.transform = 'translateX(0)';
-        });
-
-        dots[nextIndex].classList.add('active');
-        current = nextIndex;
+        // After animation, finalize state
+        const totalDuration = 850; // ms
+        setTimeout(() => {
+          slides.forEach((s, i) => {
+            s.style.transition = 'none';
+            s.style.transform = 'translateX(0)';
+            s.style.opacity = (i === nextIndex) ? '1' : '0';
+          });
+          current = nextIndex;
+          setActiveDot(current);
+        }, totalDuration);
       }
 
-      function nextSlide(auto = false) {
-        const nextIndex = (current + 1) % slides.length;
-        transitionSlide(nextIndex, 'right');
+      function nextSlide(auto=false){
+        const idx = (current + 1) % slides.length;
+        animateTo(idx, 'right');
         if (!auto) restartTimer();
       }
 
-      function prevSlide() {
-        const prevIndex = (current - 1 + slides.length) % slides.length;
-        transitionSlide(prevIndex, 'left');
+      function prevSlide(){
+        const idx = (current - 1 + slides.length) % slides.length;
+        animateTo(idx, 'left');
         restartTimer();
       }
 
-      function restartTimer() {
-        clearInterval(timer);
+      function startTimer(){
+        stopTimer();
         timer = setInterval(() => nextSlide(true), 6000);
       }
 
-      // Fix for autoplay blocking
-      setTimeout(() => restartTimer(), 100);
+      function stopTimer(){
+        if (timer) clearInterval(timer);
+        timer = null;
+      }
 
+      function restartTimer(){
+        startTimer();
+      }
+
+      // Controls
       nextBtn.addEventListener('click', () => nextSlide(false));
-      prevBtn.addEventListener('click', prevSlide);
+      prevBtn.addEventListener('click', () => prevSlide());
       dots.forEach((dot, i) => dot.addEventListener('click', () => {
-        const direction = i > current ? 'right' : 'left';
-        transitionSlide(i, direction);
+        const dir = (i > current) ? 'right' : 'left';
+        animateTo(i, dir);
         restartTimer();
       }));
+
+      // Initialize
+      initSlides();
     });
   </script>
 </head>
@@ -156,26 +187,12 @@
       </div>
     </section>
 
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:edward.a.platonov@gmail.com">edward.a.platonov@gmail.com</a></p>
-    </section>
+    <!-- Contact section removed from main -->
   </main>
 
   <!-- ===== FOOTER ===== -->
   <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>About</h3>
-        <p>
-          I am a mechanical engineer and researcher pursuing my Master of Science in Robotics. My work focuses on automation,
-          design, and applied mechatronics — developing intelligent, practical systems for real-world use.
-        </p>
-        <p>
-          Outside of engineering, I enjoy skiing, long-distance running, and working on passion projects like my car restoration.
-          I aim to bridge creativity and technical precision in every challenge I take on.
-        </p>
-      </div>
+    <div class="footer-content single">
       <div class="footer-section">
         <h3>Contact</h3>
         <p>Email: <a href="mailto:edward.a.platonov@gmail.com">edward.a.platonov@gmail.com</a></p>
