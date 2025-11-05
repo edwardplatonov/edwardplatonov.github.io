@@ -20,7 +20,7 @@ body {
 /* ===== NAVIGATION ===== */
 .navbar {
   background-color: var(--black);
-  padding: 10px 20px; /* slightly shorter */
+  padding: 8px 20px; /* slightly shorter */
   display: flex;
   justify-content: center;
   position: fixed;
@@ -81,9 +81,9 @@ body {
 /* ===== HERO SECTION ===== */
 .hero {
   position: relative;
-  height: 94vh; /* taller again so indicators are visible */
+  height: 98vh; /* taller to reach window bottom */
   overflow: hidden;
-  margin-top: 45px; /* accounts for smaller navbar */
+  margin-top: 40px;
   background-color: #000;
 }
 
@@ -100,31 +100,29 @@ body {
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transform: translateX(100%);
-  transition: transform 1.1s ease-in-out, opacity 0.9s ease-in-out;
+  transform: translateX(0);
+  transition: none;
   z-index: 1;
 }
 
 .slide.active {
   opacity: 1;
-  transform: translateX(0);
   z-index: 2;
 }
 
-.slide.fade-in {
-  opacity: 1;
+.fade-out {
+  opacity: 0;
   transition: opacity 1s ease-in-out;
 }
 
-.slide.slide-in {
-  transform: translateX(0);
+.prepare-enter {
+  opacity: 1;
+  transform: translateX(100%);
 }
 
-/* previous slides fade out instead of sliding right */
-.slide-out-left {
-  opacity: 0;
+.slide-in-final {
   transform: translateX(0);
-  transition: opacity 0.8s ease-in-out;
+  transition: transform 1.2s ease-in-out;
 }
 
 .hero-overlay {
@@ -145,19 +143,19 @@ body {
 }
 
 .hero-text h1 {
-  font-size: clamp(82px, 8.5vw, 120px); /* larger name */
-  margin-bottom: 4px;
+  font-size: clamp(90px, 9vw, 130px); /* larger name */
+  margin-bottom: 8px;
 }
 
 .hero-text h2 {
-  font-size: clamp(40px, 4.5vw, 60px); /* larger portfolio */
+  font-size: clamp(46px, 5vw, 70px); /* larger portfolio */
   color: var(--bronze);
-  margin-top: 2px; /* closer to name */
+  margin-top: 2px;
 }
 
 .learn-more {
   position: absolute;
-  bottom: 55px;
+  bottom: 60px;
   width: 100%;
   text-align: center;
   font-size: 15px;
