@@ -24,24 +24,24 @@
 
       function nextSlide() {
         const previousIndex = currentIndex;
-        currentIndex = (currentIndex + 1) % total;
         slides[previousIndex].classList.remove('active');
         slides[previousIndex].classList.add('slide-out-left');
         setTimeout(() => {
           slides[previousIndex].classList.remove('slide-out-left');
+          currentIndex = (currentIndex + 1) % total;
           showSlide(currentIndex);
-        }, 800);
+        }, 600);
       }
 
       function prevSlide() {
         const previousIndex = currentIndex;
-        currentIndex = (currentIndex - 1 + total) % total;
         slides[previousIndex].classList.remove('active');
-        slides[previousIndex].classList.add('slide-out-right');
+        slides[previousIndex].classList.add('slide-out-left');
         setTimeout(() => {
-          slides[previousIndex].classList.remove('slide-out-right');
+          slides[previousIndex].classList.remove('slide-out-left');
+          currentIndex = (currentIndex - 1 + total) % total;
           showSlide(currentIndex);
-        }, 800);
+        }, 600);
       }
 
       document.querySelector('.next').addEventListener('click', nextSlide);
@@ -78,7 +78,7 @@
     </ul>
   </header>
 
-  <!-- ===== HERO IMAGE (FIXED ANIMATION + HEIGHT) ===== -->
+  <!-- ===== HERO IMAGE (UPDATED ANIMATION + HEIGHT) ===== -->
   <section class="hero">
     <div class="slideshow-container">
       <div class="slide active" style="background-image:url('assets/images/banner1.jpg');"></div>
