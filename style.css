@@ -81,7 +81,7 @@ body {
 /* ===== HERO SECTION ===== */
 .hero {
   position: relative;
-  height: 98vh; /* taller to reach window bottom */
+  height: 98vh; /* fills most of window */
   overflow: hidden;
   margin-top: 40px;
   background-color: #000;
@@ -100,29 +100,12 @@ body {
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transform: translateX(0);
-  transition: none;
   z-index: 1;
 }
 
 .slide.active {
   opacity: 1;
   z-index: 2;
-}
-
-.fade-out {
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-
-.prepare-enter {
-  opacity: 1;
-  transform: translateX(100%);
-}
-
-.slide-in-final {
-  transform: translateX(0);
-  transition: transform 1.2s ease-in-out;
 }
 
 .hero-overlay {
@@ -135,7 +118,7 @@ body {
 .hero-text {
   position: absolute;
   z-index: 4;
-  top: 47%;
+  top: 45%; /* slightly higher */
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -143,14 +126,14 @@ body {
 }
 
 .hero-text h1 {
-  font-size: clamp(90px, 9vw, 130px); /* larger name */
+  font-size: clamp(90px, 9vw, 130px);
   margin-bottom: 8px;
 }
 
 .hero-text h2 {
-  font-size: clamp(46px, 5vw, 70px); /* larger portfolio */
+  font-size: clamp(50px, 5vw, 75px); /* slightly larger */
   color: var(--bronze);
-  margin-top: 2px;
+  margin-top: 0;
 }
 
 .learn-more {
@@ -241,11 +224,12 @@ p {
 
 .resume-frame {
   width: 90%;
-  height: 1200px;
+  height: 90vh; /* shorter with internal scrollbar */
   border: none;
   background: #111;
   border-radius: 10px;
   margin-top: 20px;
+  overflow: auto;
   display: block;
 }
 
@@ -275,7 +259,7 @@ footer {
   color: #999;
 }
 
-/* ===== ACCESSIBILITY: REDUCE MOTION ===== */
+/* ===== ACCESSIBILITY ===== */
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
