@@ -7,51 +7,67 @@
   <link rel="stylesheet" href="style.css" />
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const slides = document.querySelectorAll('.slide');
-      const dots = document.querySelectorAll('.dot');
-      let currentIndex = 0;
-      const total = slides.length;
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const dots = Array.from(document.querySelectorAll('.dot'));
+      const nextBtn = document.querySelector('.next');
+      const prevBtn = document.querySelector('.prev');
+      let current = 0;
+      let timer;
 
-      function showSlide(index) {
-        slides.forEach((slide, i) => {
-          slide.classList.remove('active', 'fade-in', 'slide-in');
-          dots[i].classList.remove('active');
+      function setActive(i) {
+        slides.forEach((s, idx) => {
+          s.classList.toggle('active', idx === i);
+          dots[idx].classList.toggle('active', idx === i);
         });
-        const currentSlide = slides[index];
-        currentSlide.classList.add('active', 'fade-in', 'slide-in');
-        dots[index].classList.add('active');
       }
 
-      function nextSlide() {
-        const previousIndex = currentIndex;
-        slides[previousIndex].classList.remove('active');
-        slides[previousIndex].classList.add('slide-out-left');
-        setTimeout(() => {
-          slides[previousIndex].classList.remove('slide-out-left');
-          currentIndex = (currentIndex + 1) % total;
-          showSlide(currentIndex);
-        }, 600);
+      function go(toIndex, direction = 1) {
+        if (toIndex === current) return;
+        const curr = slides[current];
+        const next = slides[toIndex];
+
+        // Reset classes
+        curr.classList.remove('prepare-enter', 'slide-in-final', 'fade-out');
+        next.classList.remove('prepare-enter', 'slide-in-final', 'fade-out', 'active');
+
+        // 1) Current fades out in place
+        curr.classList.add('fade-out');
+
+        // 2) Next enters from right → left (no fade)
+        next.style.transition = 'none';
+        next.classList.add('prepare-enter'); // translateX(100%), opacity:1
+        // force reflow so the following transition triggers
+        next.getBoundingClientRect();
+        next.style.transition = '';
+        next.classList.add('slide-in-final'); // translateX(0)
+
+        // After animations complete, clean up & set new active
+        const onDone = () => {
+          curr.classList.remove('fade-out');
+          next.classList.remove('prepare-enter', 'slide-in-final');
+          current = toIndex;
+          setActive(current);
+          curr.removeEventListener('transitionend', onDone);
+        };
+        curr.addEventListener('transitionend', onDone);
+
+        restartTimer();
       }
 
-      function prevSlide() {
-        const previousIndex = currentIndex;
-        slides[previousIndex].classList.remove('active');
-        slides[previousIndex].classList.add('slide-out-left');
-        setTimeout(() => {
-          slides[previousIndex].classList.remove('slide-out-left');
-          currentIndex = (currentIndex - 1 + total) % total;
-          showSlide(currentIndex);
-        }, 600);
+      function nextSlide() { go((current + 1) % slides.length, 1); }
+      function prevSlide() { go((current - 1 + slides.length) % slides.length, -1); }
+
+      function restartTimer() {
+        clearInterval(timer);
+        timer = setInterval(nextSlide, 6000);
       }
 
-      document.querySelector('.next').addEventListener('click', nextSlide);
-      document.querySelector('.prev').addEventListener('click', prevSlide);
-      dots.forEach((dot, index) => dot.addEventListener('click', () => {
-        currentIndex = index;
-        showSlide(currentIndex);
-      }));
+      nextBtn.addEventListener('click', nextSlide);
+      prevBtn.addEventListener('click', prevSlide);
+      dots.forEach((dot, i) => dot.addEventListener('click', () => go(i)));
 
-      setInterval(nextSlide, 6000);
+      setActive(current);
+      restartTimer();
     });
   </script>
 </head>
@@ -78,7 +94,7 @@
     </ul>
   </header>
 
-  <!-- ===== HERO IMAGE (UPDATED ANIMATION + HEIGHT) ===== -->
+  <!-- ===== HERO IMAGE (ANIMATION REFINED) ===== -->
   <section class="hero">
     <div class="slideshow-container">
       <div class="slide active" style="background-image:url('assets/images/banner1.jpg');"></div>
@@ -127,12 +143,13 @@
       <p>Coming soon...</p>
     </section>
 
-    <!-- ===== RESUME FIX (NO CHROME PRINT PREVIEW) ===== -->
+    <!-- ===== RESUME (NO CHROME PRINT UI) ===== -->
     <section id="resume">
       <h2>Resume</h2>
       <div class="resume-container">
         <p>You can view my resume directly below:</p>
-        <embed src="Edward Platonov - Resume.pdf#view=FitH" type="application/pdf" class="resume-frame" />
+        <!-- Add URL fragment to hide Chrome toolbar/sidebar -->
+        <embed src="Edward Platonov - Resume.pdf#view=FitH&zoom=100&toolbar=0&navpanes=0&scrollbar=0" type="application/pdf" class="resume-frame" />
         <a href="Edward Platonov - Resume.pdf" download class="download-btn">Download Resume (PDF)</a>
       </div>
     </section>
