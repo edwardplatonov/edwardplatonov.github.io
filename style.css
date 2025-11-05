@@ -81,7 +81,7 @@ body {
 /* ===== HERO SECTION ===== */
 .hero {
   position: relative;
-  height: 86vh; /* slightly reduced */
+  height: 89vh; /* restored height */
   overflow: hidden;
   margin-top: 55px;
   background-color: #000;
@@ -101,7 +101,7 @@ body {
   background-position: center;
   opacity: 0;
   transform: translateX(100%);
-  transition: transform 0.8s ease, opacity 0.8s ease;
+  transition: transform 1s ease, opacity 0.8s ease;
   z-index: 1;
 }
 
@@ -109,6 +109,25 @@ body {
   opacity: 1;
   transform: translateX(0);
   z-index: 2;
+}
+
+.slide.fade-in {
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+.slide.slide-in {
+  transform: translateX(0);
+}
+
+.slide-out-left {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.slide-out-right {
+  transform: translateX(100%);
+  opacity: 0;
 }
 
 .hero-overlay {
@@ -121,7 +140,7 @@ body {
 .hero-text {
   position: absolute;
   z-index: 4;
-  top: 46%;
+  top: 47%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -129,14 +148,14 @@ body {
 }
 
 .hero-text h1 {
-  font-size: clamp(70px, 8vw, 110px); /* larger name */
-  margin-bottom: 2px;
+  font-size: clamp(72px, 8vw, 110px);
+  margin-bottom: 4px;
 }
 
 .hero-text h2 {
-  font-size: clamp(28px, 4vw, 42px);
+  font-size: clamp(30px, 4vw, 44px);
   color: var(--bronze);
-  margin-top: -8px; /* move closer to name */
+  margin-top: -6px;
 }
 
 .learn-more {
@@ -226,20 +245,13 @@ p {
 }
 
 .resume-frame {
-  width: 85%;
+  width: 90%;
   height: 1000px;
   border: none;
   background: #111;
   border-radius: 10px;
   margin-top: 20px;
-}
-
-/* Hide Chrome PDF toolbar */
-iframe.resume-frame::-internal-media-controls-overlay-cast-button,
-iframe.resume-frame::-webkit-media-controls,
-iframe.resume-frame::-webkit-pdf-toolbar,
-iframe.resume-frame::-webkit-scrollbar-button {
-  display: none !important;
+  display: block;
 }
 
 .download-btn {
