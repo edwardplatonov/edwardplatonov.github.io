@@ -20,7 +20,6 @@
         const curr = slides[current];
         const next = slides[nextIndex];
 
-        // Reset all slides
         slides.forEach((s, i) => {
           s.style.transition = 'none';
           s.style.opacity = '0';
@@ -28,17 +27,14 @@
           dots[i].classList.remove('active');
         });
 
-        // Fade out the current slide
         curr.style.transition = 'opacity 0.6s ease-in-out';
         curr.style.opacity = '0';
 
-        // Set starting position for next slide
         const startX = direction === 'right' ? '100%' : '-100%';
         next.style.transition = 'none';
         next.style.opacity = '1';
         next.style.transform = `translateX(${startX})`;
 
-        // Trigger sliding animation
         requestAnimationFrame(() => {
           next.style.transition = 'transform 0.8s ease-in-out';
           next.style.transform = 'translateX(0)';
@@ -65,6 +61,9 @@
         timer = setInterval(() => nextSlide(true), 6000);
       }
 
+      // Fix for autoplay blocking
+      setTimeout(() => restartTimer(), 100);
+
       nextBtn.addEventListener('click', () => nextSlide(false));
       prevBtn.addEventListener('click', prevSlide);
       dots.forEach((dot, i) => dot.addEventListener('click', () => {
@@ -72,8 +71,6 @@
         transitionSlide(i, direction);
         restartTimer();
       }));
-
-      restartTimer();
     });
   </script>
 </head>
@@ -165,8 +162,28 @@
     </section>
   </main>
 
+  <!-- ===== FOOTER ===== -->
   <footer>
-    <p>© 2025 Edward Platonov</p>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About</h3>
+        <p>
+          I am a mechanical engineer and researcher pursuing my Master of Science in Robotics. My work focuses on automation,
+          design, and applied mechatronics — developing intelligent, practical systems for real-world use.
+        </p>
+        <p>
+          Outside of engineering, I enjoy skiing, long-distance running, and working on passion projects like my car restoration.
+          I aim to bridge creativity and technical precision in every challenge I take on.
+        </p>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p>Email: <a href="mailto:edward.a.platonov@gmail.com">edward.a.platonov@gmail.com</a></p>
+        <p>Phone: (860) 995-9968</p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/edward-platonov" target="_blank">www.linkedin.com/in/edward-platonov</a></p>
+      </div>
+    </div>
+    <p class="copyright">© 2025 Edward Platonov</p>
   </footer>
 </body>
 </html>
