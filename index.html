@@ -6,13 +6,12 @@
   <title>Edward Platonov | Portfolio</title>
   <link rel="stylesheet" href="style.css" />
 
-  <!-- ===== SLIDESHOW + SCROLL REVEAL ===== -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
 
-      /* ============================
+      /* ==========================================
          HERO SLIDESHOW
-      ============================ */
+      ========================================== */
       const slides = Array.from(document.querySelectorAll('.slide'));
       const dots = Array.from(document.querySelectorAll('.dot'));
       const nextBtn = document.querySelector('.next');
@@ -44,12 +43,12 @@
 
         next.style.transition = 'none';
         next.style.opacity = '1';
-        next.style.transform = (direction === 'right') ? 'translateX(100%)' : 'translateX(-100%)';
+        next.style.transform =
+            (direction === 'right') ? 'translateX(100%)' : 'translateX(-100%)';
         void next.offsetWidth;
 
         curr.style.transition = 'opacity 0.6s ease-in-out';
         curr.style.opacity = '0';
-
         next.style.transition = 'transform 0.8s ease-in-out';
         next.style.transform = 'translateX(0)';
 
@@ -85,11 +84,11 @@
         if (timer) clearInterval(timer);
         timer = null;
       }
-
       function restartTimer(){ startTimer(); }
 
       nextBtn.addEventListener('click', () => nextSlide(false));
       prevBtn.addEventListener('click', () => prevSlide());
+
       dots.forEach((dot, i) =>
         dot.addEventListener('click', () => {
           const dir = (i > current) ? 'right' : 'left';
@@ -101,18 +100,20 @@
       initSlides();
 
 
-      /* ============================
-         SCROLL REVEAL EFFECT
-      ============================ */
+      /* ==========================================
+         SCROLL REVEAL (BOTH DIRECTIONS)
+      ========================================== */
       const reveals = document.querySelectorAll(".reveal");
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add("visible");
+          } else {
+            entry.target.classList.remove("visible");
           }
         });
-      }, { threshold: 0.15 });
+      }, { threshold: 0.3 });
 
       reveals.forEach(r => observer.observe(r));
 
@@ -122,7 +123,7 @@
 
 <body class="glossy-bg glossy-sheen">
 
-  <!-- ===== NAVIGATION ===== -->
+  <!-- ===================== NAVIGATION ===================== -->
   <header class="navbar">
     <ul class="menu">
       <li><a href="#about">About</a></li>
@@ -137,7 +138,7 @@
     </ul>
   </header>
 
-  <!-- ===== HERO ===== -->
+  <!-- ===================== HERO ===================== -->
   <section class="hero">
     <div class="slideshow-container">
       <div class="slide active" style="background-image:url('assets/images/banner1.jpg')"></div>
@@ -170,102 +171,104 @@
     </div>
   </section>
 
-  <!-- ===== MAIN SECTIONS ===== -->
+  <!-- ===================== MAIN ===================== -->
   <main>
 
-    <!-- ===== ABOUT ===== -->
+    <!-- ABOUT -->
     <section class="panel" id="about">
       <div class="panel-content reveal">
         <h2>About Me</h2>
         <p>
-          I’m a mechanical engineer pursuing an M.S. in Robotics, focusing on automation, precision design, and 
-          modern mechatronic systems. My work blends advanced engineering tools with practical, hands-on prototyping.
+          I’m a mechanical engineer pursuing an M.S. in Robotics, focusing on automation, precision design,
+          and modern mechatronic systems. My work blends advanced engineering tools with hands-on prototyping.
         </p>
       </div>
     </section>
 
-    <!-- ===== SARIS ===== -->
+    <!-- SARIS -->
     <section class="panel" id="saris">
       <div class="panel-content reveal">
         <h2>Smart Articulated Robotic Inspection System</h2>
         <p>
-          A fully autonomous inspection system combining robotics, structured-light scanning, and precision defect detection.
+          A fully autonomous inspection pipeline combining robotics, structured-light scanning, and precision
+          defect detection software.
         </p>
       </div>
     </section>
 
-    <!-- ===== BMW Z4 ===== -->
+    <!-- BMW -->
     <section class="panel" id="bmw">
       <div class="panel-content reveal">
-        <h2>Restoring My Modern Classic BMW Z4</h2>
+        <h2>Restoring My BMW Z4</h2>
         <p>
-          A full mechanical and aesthetic restoration project focusing on engine work, electrical repairs, and interior detailing.
+          A modern restoration project focusing on engine work, electrical repair, mechanical refresh,
+          and interior detailing.
         </p>
       </div>
     </section>
 
-    <!-- ===== TRUMPF ===== -->
+    <!-- TRUMPF -->
     <section class="panel" id="trumpf">
       <div class="panel-content reveal">
         <h2>TRUMPF Internship</h2>
         <p>
-          Internship focused on industrial automation, high-precision manufacturing, and mechanical design engineering.
+          Industrial engineering internship focused on high-precision manufacturing systems and automation.
         </p>
       </div>
     </section>
 
-    <!-- ===== SEDMED ===== -->
+    <!-- SEDMED -->
     <section class="panel" id="sedmed">
       <div class="panel-content reveal">
-        <h2>SedMed Intern Engineer</h2>
+        <h2>SedMed Engineering</h2>
         <p>
-          Design and prototyping work for assistive mobility devices, including lift systems and ergonomic support products.
+          Assistive mobility product engineering, ergonomic design, and prototype development.
         </p>
       </div>
     </section>
 
-    <!-- ===== DESK SETUP ===== -->
+    <!-- DESK -->
     <section class="panel" id="desk">
       <div class="panel-content reveal">
-        <h2>My Desk & Computers</h2>
+        <h2>My Desk & Computer Setup</h2>
         <p>
-          A customized engineering workspace built for robotics simulation, CAD, large datasets, and high-performance workflows.
+          A workstation built for CAD, robotics simulation, 3D scanning, and large dataset workloads.
         </p>
       </div>
     </section>
 
-    <!-- ===== ATHLETICS ===== -->
+    <!-- ATHLETICS -->
     <section class="panel" id="athletics">
       <div class="panel-content reveal">
         <h2>Athletics</h2>
         <p>
-          Competitive sports and training as part of my long-term personal development and discipline building.
+          Competitive training and performance as part of long-term discipline and personal development.
         </p>
       </div>
     </section>
 
-    <!-- ===== PIANO ===== -->
+    <!-- PIANO -->
     <section class="panel" id="piano">
       <div class="panel-content reveal">
         <h2>Piano</h2>
         <p>
-          Music has been a lifelong passion — I use piano training to strengthen creativity, focus, and rhythm.
+          Music builds creativity, rhythm, and focus — all of which enhance my engineering mindset.
         </p>
       </div>
     </section>
 
-    <!-- ===== RESUME ===== -->
+    <!-- RESUME -->
     <section class="panel" id="resume">
       <div class="panel-content reveal">
         <h2>Resume</h2>
-        <embed src="Edward Platonov - Resume.pdf#view=FitH&zoom=100&toolbar=0&navpanes=0" 
+        <embed src="Edward Platonov - Resume.pdf#view=FitH&zoom=100&toolbar=0&navpanes=0"
                type="application/pdf" class="resume-frame">
       </div>
     </section>
 
   </main>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- ===================== FOOTER ===================== -->
   <footer>
     <p>Email: <a href="mailto:edward.a.platonov@gmail.com">edward.a.platonov@gmail.com</a></p>
     <p>LinkedIn: <a href="https://www.linkedin.com/in/edward-platonov" target="_blank">linkedin.com/in/edward-platonov</a></p>
