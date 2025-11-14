@@ -5,8 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Edward Platonov | Portfolio</title>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- ===== SLIDESHOW + SCROLL REVEAL ===== -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+
+      /* ============================
+         HERO SLIDESHOW
+      ============================ */
       const slides = Array.from(document.querySelectorAll('.slide'));
       const dots = Array.from(document.querySelectorAll('.dot'));
       const nextBtn = document.querySelector('.next');
@@ -25,7 +31,6 @@
           s.style.transform = 'translateX(0)';
         });
         setActiveDot(0);
-        // ensure styles are committed before starting timer
         requestAnimationFrame(() => {
           slides.forEach(s => s.style.transition = '');
           startTimer();
@@ -37,23 +42,17 @@
         const curr = slides[current];
         const next = slides[nextIndex];
 
-        // Prepare next slide off-screen
         next.style.transition = 'none';
         next.style.opacity = '1';
         next.style.transform = (direction === 'right') ? 'translateX(100%)' : 'translateX(-100%)';
-        // force reflow to register the starting transform
         void next.offsetWidth;
 
-        // Fade current (no movement)
         curr.style.transition = 'opacity 0.6s ease-in-out';
         curr.style.opacity = '0';
 
-        // Slide next into place
         next.style.transition = 'transform 0.8s ease-in-out';
         next.style.transform = 'translateX(0)';
 
-        // After animation, finalize state
-        const totalDuration = 850; // ms
         setTimeout(() => {
           slides.forEach((s, i) => {
             s.style.transition = 'none';
@@ -62,7 +61,7 @@
           });
           current = nextIndex;
           setActiveDot(current);
-        }, totalDuration);
+        }, 850);
       }
 
       function nextSlide(auto=false){
@@ -87,57 +86,67 @@
         timer = null;
       }
 
-      function restartTimer(){
-        startTimer();
-      }
+      function restartTimer(){ startTimer(); }
 
-      // Controls
       nextBtn.addEventListener('click', () => nextSlide(false));
       prevBtn.addEventListener('click', () => prevSlide());
-      dots.forEach((dot, i) => dot.addEventListener('click', () => {
-        const dir = (i > current) ? 'right' : 'left';
-        animateTo(i, dir);
-        restartTimer();
-      }));
+      dots.forEach((dot, i) =>
+        dot.addEventListener('click', () => {
+          const dir = (i > current) ? 'right' : 'left';
+          animateTo(i, dir);
+          restartTimer();
+        })
+      );
 
-      // Initialize
       initSlides();
+
+
+      /* ============================
+         SCROLL REVEAL EFFECT
+      ============================ */
+      const reveals = document.querySelectorAll(".reveal");
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, { threshold: 0.15 });
+
+      reveals.forEach(r => observer.observe(r));
+
     });
   </script>
 </head>
-<body>
-  <!-- ===== NAVIGATION BAR ===== -->
+
+<body class="glossy-bg glossy-sheen">
+
+  <!-- ===== NAVIGATION ===== -->
   <header class="navbar">
     <ul class="menu">
-      <li class="dropdown"><a href="#projects">Projects ▾</a>
-        <ul class="dropdown-content">
-          <li><a href="#saris">Smart Robotic Inspection System</a></li>
-          <li><a href="#bmw">BMW Z4 Restoration</a></li>
-          <li><a href="#sedmed">Assistive Lift Systems (SedMed)</a></li>
-        </ul>
-      </li>
-      <li class="dropdown"><a href="#experience">Experience ▾</a>
-        <ul class="dropdown-content">
-          <li><a href="#sedmed-exp">SedMed</a></li>
-          <li><a href="#trumpf">TRUMPF</a></li>
-          <li><a href="#pa">P&A Consulting</a></li>
-        </ul>
-      </li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#saris">SARIS</a></li>
+      <li><a href="#bmw">BMW Z4</a></li>
+      <li><a href="#trumpf">TRUMPF</a></li>
+      <li><a href="#sedmed">SedMed</a></li>
+      <li><a href="#desk">Desk</a></li>
+      <li><a href="#athletics">Athletics</a></li>
+      <li><a href="#piano">Piano</a></li>
       <li><a href="#resume">Resume</a></li>
-      <li><a href="#contact">Contact</a></li>
     </ul>
   </header>
 
-  <!-- ===== HERO IMAGE ===== -->
+  <!-- ===== HERO ===== -->
   <section class="hero">
     <div class="slideshow-container">
-      <div class="slide active" style="background-image:url('assets/images/banner1.jpg'); opacity: 1;"></div>
-      <div class="slide" style="background-image:url('assets/images/banner2.jpg');"></div>
-      <div class="slide" style="background-image:url('assets/images/banner3.jpg');"></div>
-      <div class="slide" style="background-image:url('assets/images/banner4.jpg');"></div>
-      <div class="slide" style="background-image:url('assets/images/banner5.jpg');"></div>
-      <div class="slide" style="background-image:url('assets/images/banner6.jpg');"></div>
-      <div class="slide" style="background-image:url('assets/images/banner7.jpg');"></div>
+      <div class="slide active" style="background-image:url('assets/images/banner1.jpg')"></div>
+      <div class="slide" style="background-image:url('assets/images/banner2.jpg')"></div>
+      <div class="slide" style="background-image:url('assets/images/banner3.jpg')"></div>
+      <div class="slide" style="background-image:url('assets/images/banner4.jpg')"></div>
+      <div class="slide" style="background-image:url('assets/images/banner5.jpg')"></div>
+      <div class="slide" style="background-image:url('assets/images/banner6.jpg')"></div>
+      <div class="slide" style="background-image:url('assets/images/banner7.jpg')"></div>
 
       <a class="prev">&#10094;</a>
       <a class="next">&#10095;</a>
@@ -154,53 +163,114 @@
     </div>
 
     <div class="hero-overlay"></div>
+
     <div class="hero-text">
       <h1>Edward Platonov</h1>
-      <h2>Portfolio</h2>
+      <h2>Mechanical Engineer & Robotics Developer</h2>
     </div>
-
-    <p class="learn-more">Learn more about this project</p>
   </section>
 
-  <!-- ===== MAIN CONTENT ===== -->
+  <!-- ===== MAIN SECTIONS ===== -->
   <main>
-    <section id="about">
-      <h2>About</h2>
-      <p>
-        I’m a mechanical engineer pursuing an M.S. in Robotics. My work spans automation, design, and mechatronics,
-        blending precision engineering with modern technology.
-      </p>
-    </section>
 
-    <section id="projects">
-      <h2>Projects</h2>
-      <p>Coming soon...</p>
-    </section>
-
-    <!-- ===== RESUME ===== -->
-    <section id="resume">
-      <h2>Resume</h2>
-      <div class="resume-container">
-        <p>You can view my resume directly below:</p>
-        <embed src="Edward Platonov - Resume.pdf#view=FitH&zoom=100&toolbar=0&navpanes=0&scrollbar=0" type="application/pdf" class="resume-frame" />
-        <a href="Edward Platonov - Resume.pdf" download class="download-btn">Download Resume (PDF)</a>
+    <!-- ===== ABOUT ===== -->
+    <section class="panel" id="about">
+      <div class="panel-content reveal">
+        <h2>About Me</h2>
+        <p>
+          I’m a mechanical engineer pursuing an M.S. in Robotics, focusing on automation, precision design, and 
+          modern mechatronic systems. My work blends advanced engineering tools with practical, hands-on prototyping.
+        </p>
       </div>
     </section>
 
-    <!-- Contact section removed from main -->
+    <!-- ===== SARIS ===== -->
+    <section class="panel" id="saris">
+      <div class="panel-content reveal">
+        <h2>Smart Articulated Robotic Inspection System</h2>
+        <p>
+          A fully autonomous inspection system combining robotics, structured-light scanning, and precision defect detection.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== BMW Z4 ===== -->
+    <section class="panel" id="bmw">
+      <div class="panel-content reveal">
+        <h2>Restoring My Modern Classic BMW Z4</h2>
+        <p>
+          A full mechanical and aesthetic restoration project focusing on engine work, electrical repairs, and interior detailing.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== TRUMPF ===== -->
+    <section class="panel" id="trumpf">
+      <div class="panel-content reveal">
+        <h2>TRUMPF Internship</h2>
+        <p>
+          Internship focused on industrial automation, high-precision manufacturing, and mechanical design engineering.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== SEDMED ===== -->
+    <section class="panel" id="sedmed">
+      <div class="panel-content reveal">
+        <h2>SedMed Intern Engineer</h2>
+        <p>
+          Design and prototyping work for assistive mobility devices, including lift systems and ergonomic support products.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== DESK SETUP ===== -->
+    <section class="panel" id="desk">
+      <div class="panel-content reveal">
+        <h2>My Desk & Computers</h2>
+        <p>
+          A customized engineering workspace built for robotics simulation, CAD, large datasets, and high-performance workflows.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== ATHLETICS ===== -->
+    <section class="panel" id="athletics">
+      <div class="panel-content reveal">
+        <h2>Athletics</h2>
+        <p>
+          Competitive sports and training as part of my long-term personal development and discipline building.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== PIANO ===== -->
+    <section class="panel" id="piano">
+      <div class="panel-content reveal">
+        <h2>Piano</h2>
+        <p>
+          Music has been a lifelong passion — I use piano training to strengthen creativity, focus, and rhythm.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== RESUME ===== -->
+    <section class="panel" id="resume">
+      <div class="panel-content reveal">
+        <h2>Resume</h2>
+        <embed src="Edward Platonov - Resume.pdf#view=FitH&zoom=100&toolbar=0&navpanes=0" 
+               type="application/pdf" class="resume-frame">
+      </div>
+    </section>
+
   </main>
 
   <!-- ===== FOOTER ===== -->
   <footer>
-    <div class="footer-content single">
-      <div class="footer-section">
-        <h3>Contact</h3>
-        <p>Email: <a href="mailto:edward.a.platonov@gmail.com">edward.a.platonov@gmail.com</a></p>
-        <p>Phone: (203) 727-4404</p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/edward-platonov" target="_blank">www.linkedin.com/in/edward-platonov</a></p>
-      </div>
-    </div>
+    <p>Email: <a href="mailto:edward.a.platonov@gmail.com">edward.a.platonov@gmail.com</a></p>
+    <p>LinkedIn: <a href="https://www.linkedin.com/in/edward-platonov" target="_blank">linkedin.com/in/edward-platonov</a></p>
     <p class="copyright">© 2025 Edward Platonov</p>
   </footer>
+
 </body>
 </html>
